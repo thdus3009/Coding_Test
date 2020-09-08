@@ -1,0 +1,52 @@
+package kakao;
+
+import java.util.*;
+
+public class failure_rate_2018_2 { //풀긴풀었는데 정확성 70퍼;;
+	
+	public static void main(String[] args) {
+		int N =5;
+		int[] stages = {2,1,2,6,2,4,3,3};
+		
+	        int remain[] = new int[N+1];
+	        int pass[] = new int[N];
+	        for(int i=0; i<stages.length;i++) {
+	            remain[stages[i]-1]++;
+	            for(int j =0; j<stages[i]-1; j++) {
+	                pass[j]++;
+	            }
+	        }
+	        double[] fail = new double[N];
+	        for(int i= 0; i<N; i++) {
+	            if(pass[i]==0&&remain[i]==0) {
+	                fail[i]=0;
+	            }
+	            else
+	            fail[i] = (double)remain[i]/(double)pass[i];
+	        }
+
+	        HashMap<Integer, Double> failmap = new HashMap<Integer, Double>();
+	        for(int i=0; i<N;i++) {
+	            failmap.put(i+1, fail[i]);
+	        }
+	        int[] answer = new int[N];
+	        for(int i=0; i<N; i++) {
+	            double max = -1;
+	            int maxkey = 0; 
+	            for ( Integer key : failmap.keySet()) {
+	               if(max <failmap.get(key)) {
+	                   max = failmap.get(key);
+	                   maxkey = key;
+	               }
+	            }
+	            answer[i]=maxkey;
+	            failmap.remove(maxkey);
+	        }
+
+	        //정답
+	        for(int i=0; i<answer.length; i++) {
+	        	System.out.println(answer[i]);
+	        }
+	}
+	
+}
