@@ -2,7 +2,7 @@ package kakao;
 
 import java.util.*;
 
-public class failure_rate_2018_2 { //풀긴풀었는데 정확성 70퍼;;
+public class failure_rate_2018_2 { 
 	
 	public static void main(String[] args) {
 		int N =5;

@@ -2,21 +2,16 @@ package programmers;
 
 public class test {
 	
-	static class Song implements Comparable<Song>{
-		int play;
-		String genre;
+	public static void main(String[] args) {
+		//팩토리얼 계산
+		int n=5; //5*4*3*2*1 = 120
 		
-		public Song(int play, String genre) {
-			this.play = play;
-			this.genre = genre;
-		}
-
-		@Override
-		public int compareTo(Song o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
+		int result = func(n);
+		System.out.println(result);
 	}
-
+	public static int func(int n) {
+		if(n==1) return 1;
+		if(n==2) return 2;
+		return n*func(n-1);
+	}
 }
