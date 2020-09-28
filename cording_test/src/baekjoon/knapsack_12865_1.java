@@ -19,10 +19,11 @@ public class knapsack_12865_1 { //모든 경우의 수를 다 해봐야 한다.(
 			v[i]=sc.nextInt();
 		}
 		
-		for(int i=1; i<=n; i++) { //dp에 값을 담을 이중for문 
+		for(int i=1; i<=n; i++) { //dp에 값을 담을 이중for문 (i-아이템 / j-제한무게)
 			for(int j=1; j<=k; j++) {
-				dp[i][j] = dp[i-1][j]; //이부분을 else로 빼도된다. 
-				if(w[i]<=j) {
+				if(w[i]>j) {//수용무게보다 아이템의 무게가 더클때, 해당무게의 이전 최대가치값을 넣어준다. 
+					dp[i][j] = dp[i-1][j];  
+				}else if(w[i]<=j) {
 					dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-w[i]]+v[i]);
 				}
 			}
