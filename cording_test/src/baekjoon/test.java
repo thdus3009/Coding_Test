@@ -1,6 +1,7 @@
 package baekjoon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -8,61 +9,59 @@ import java.util.Scanner;
 
 public class test {
 	
-	public static int[][] arr; //ArrayList<Integer>형 배열
-	public static boolean[] visited; //int형 배열
+	public static int[][] arr; 
+	public static boolean[][] visited;
+	public static int[] dx = {1,-1,0,0};
+	public static int[] dy = {0,0,1,-1};
+	public static int[] aparts; //아파트당 가구수
+	public static int apartNum; //아파트갯수
+	public static int n;
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		//인접 행렬을 이용해서 풀기
-		int point = sc.nextInt();
-		int line = sc.nextInt();
-		int start = sc.nextInt();
+		n = sc.nextInt();
 		
-		arr = new int[point+1][point+1];
+		arr=new int[n][n];
+		visited=new boolean[n][n];
 		
-		for(int i=1; i<=line; i++) {
-			int a = sc.nextInt();
-			int b = sc.nextInt();
-			arr[a][b] = 1;
-			arr[b][a] = 1;
-		}
-		
-		visited = new boolean[point+1];
-		dfs(start);
-		
-		System.out.println();
-		
-		visited = new boolean[point+1];
-		bfs(start);
-
-	}
-	
-	public static void dfs(int start) {
-		visited[start] = true;
-		System.out.print(start+" ");
-		
-		for(int i=1; i<arr.length;i++) {
-			if(arr[start][i]==1 && visited[i]==false) {
-				dfs(i);
+		for(int i=0;i<n;i++) {
+			String line = sc.next();
+			for(int j=0;j<n;j++) {
+				arr[i][j]=line.charAt(j)-'0';
 			}
 		}
-				
+		
+		aparts=new int[n*n];
+		apartNum=0;
+		
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				if(arr[i][j]==1 && !visited[i][j]) {
+					apartNum++;
+					dfs(i,j);
+				}
+			}
+		}
+		System.out.println(apartNum);
+		Arrays.sort(aparts);
+		
+		for(int i=0;i<aparts.length;i++) {
+			if(aparts[i]!=0) {
+				System.out.println(aparts[i]);
+			}
+		}
 	}
 	
-	public static void bfs(int start) {
-		Queue<Integer> que = new LinkedList<>();
-		
-		visited[start] = true;
-		que.add(start);
-		
-		while(!que.isEmpty()) {
-			int st = que.poll();
-			System.out.println(st+" ");
+	public static void dfs(int x, int y) {
+		visited[x][y]=true;
+		aparts[apartNum]++;
+		for(int i=0;i<4;i++) {
+			int nx = x+dx[i];
+			int ny = y+dy[i];
 			
-			for(int i=1; i<arr.length;i++) {
-				if(arr[st][i]==1 && visited[i]==false) {
-					visited[i]=true;
-					que.add(i);
+			if(nx>=0 && ny>=0 && nx<n && ny<n) {
+				if(arr[nx][ny]==1 && !visited[nx][ny]) {
+					dfs(nx,ny);
 				}
 			}
 		}
