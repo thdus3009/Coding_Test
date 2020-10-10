@@ -33,6 +33,7 @@ public class DFS_BFS_1260_3_list {
 		}
 		
 		//오름차순 정렬
+		//방문할 수 있는 정점이 여러 개인 경우에는 정점 번호가 작은 것을 먼저 방문
        for (int i = 1; i < point + 1; i++) {
             Collections.sort(arr[i]);
         }
@@ -48,13 +49,11 @@ public class DFS_BFS_1260_3_list {
 	}
 	
 	public static void dfs(int start) {
-		if(visited[start]) {
-			return;
-		}
+		
 		visited[start]=true;
 		System.out.print(start+" ");
 		
-		for(int y : arr[start]) {
+		for(int y : arr[start]) { 
 			if(!visited[y]) {
 				dfs(y);
 			}
