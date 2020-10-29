@@ -21,7 +21,7 @@ public class Big_Num {
 		int result=0; //누적해서 더하줄 변수선언
 		int add=0;
 		
-		while(add!=count) { //단점 : 속도가 너무 느리다.
+		while(add!=count) { //단점 : 속도가 너무 느리다.(17초)
 			for(int i=0;i<repeat; i++) {
 			result+=arr.get(num-1);
 			add++;
